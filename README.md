@@ -158,8 +158,8 @@ pytest
 
 ## Deployed Link on Vercel and the Backend on Vercel
 
- **https://sunbird-frontend.vercel.app/**
- **https://sunbird-backend-gwu5.onrender.com/api/health -to test functionality of the deployed backend**
+ - **https://sunbird-frontend.vercel.app/**
+ - **https://sunbird-backend-gwu5.onrender.com/api/health -to test functionality of the deployed backend**
 
 ---
 
