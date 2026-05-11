@@ -6,7 +6,7 @@ import pytest
 from exercises.basics import collatz, distinct_numbers
 
 
-# ── collatz ──────────────────────────────────────────────────────────────────
+#collatz
 
 class TestCollatz:
     def test_collatz_1(self):
@@ -39,7 +39,7 @@ class TestCollatz:
             assert val > 0
 
 
-# ── distinct_numbers ──────────────────────────────────────────────────────────
+#distinct_numbers
 
 class TestDistinctNumbers:
     def test_no_duplicates(self):
