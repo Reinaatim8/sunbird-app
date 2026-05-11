@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Sunbird AI Pipeline",
   description:
-    "Transcribe, summarise, translate, and synthesise speech in Ugandan languages — powered by Sunbird AI.",
+    "Transcribe, summarise, translate, and synthesise speech in some Ugandan languages. Powered by Sunbird AI.",
 };
 
 export default function RootLayout({

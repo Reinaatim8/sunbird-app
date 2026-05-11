@@ -161,6 +161,7 @@ export default function Home() {
     <main className="relative z-10 min-h-screen px-4 py-12 max-w-2xl mx-auto">
 
       {/* Header */}
+      
       <header className="mb-12 text-center animate-fade-up">
         <div className="inline-flex items-center gap-2 mb-4 px-3 py-1.5 rounded-full
                         bg-sun-100 border border-sun-200 text-sun-700 text-xs font-mono font-medium">
@@ -173,7 +174,7 @@ export default function Home() {
         </h1>
         <p className="mt-3 text-earth-600 font-body text-sm sm:text-base max-w-md mx-auto leading-relaxed">
           Transcribe audio, summarise the content, translate it into a Ugandan language,
-          and hear it spoken aloud — all in one flow.
+          and hear it spoken aloud all in one flow.
         </p>
       </header>
 
@@ -285,7 +286,7 @@ export default function Home() {
         <div className="flex items-center gap-2 mb-2 p-3 rounded-lg bg-sun-50 border border-sun-200">
           <Loader2 className="w-4 h-4 animate-spin text-sun-500 shrink-0" />
           <p className="font-body text-sm text-sun-700">
-             Please be patient — this pipeline makes several AI calls and may take
+             Please be patient — this pipeline makes several API calls and may take
             1–3 minutes to complete. Sit tight!
           </p>
         </div>
@@ -301,13 +302,40 @@ export default function Home() {
         </div>
       )}
 
-      {/* Error */}
-      {error && (
-        <div className="mb-6 flex gap-3 rounded-xl border border-red-200 bg-red-50 p-4 animate-fade-up">
-          <AlertCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
-          <p className="font-body text-sm text-red-700">{error}</p>
-        </div>
-      )}
+       {/* Error */}
+        {error && (
+          <div className="mb-6 animate-fade-up">
+            <div className="flex flex-col gap-3 rounded-xl border border-red-200 bg-red-50 p-4">
+              <div className="flex gap-3">
+                <AlertCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
+                <div className="flex-1">
+                  <p className="font-bold text-sm text-red-800">Something went wrong</p>
+                  <p className="font-body text-sm text-red-700 mt-1">
+                    {error.includes("Failed to fetch") 
+                      ? "The server is taking a moment to wake up or you have no internet. Please wait 30 seconds and try again." 
+                      : error}
+                  </p>
+                </div>
+              </div>
+              
+              {/* Try Again Button */}
+              <button
+                onClick={runPipeline}
+                disabled={running}
+                className="mt-2 flex items-center justify-center gap-2 w-full py-2 rounded-lg
+                          bg-white border border-red-200 text-red-700 text-sm font-medium
+                          hover:bg-red-100 transition-colors disabled:opacity-50"
+              >
+                {running ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  "Try again"
+                )}
+              </button>
+            </div>
+          </div>
+        )}
+
 
       {/* Results */}
       {result && !running && (
