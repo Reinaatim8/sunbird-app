@@ -108,7 +108,7 @@ export default function Home() {
           return;
         }
         formData.append("text", text);
-        endpoint = "/api/pipeline/text";
+        endpoint = "https://sunbird-backend-gwu5.onrender.com/api/pipeline/text";
         setStep("summarise", "loading");
       } else {
         if (!audioFile) {
@@ -117,7 +117,7 @@ export default function Home() {
           return;
         }
         formData.append("audio", audioFile);
-        endpoint = "/api/pipeline/audio";
+        endpoint = "https://sunbird-backend-gwu5.onrender.com/api/pipeline/audio";
         setStep("transcribe", "loading");
       }
 
