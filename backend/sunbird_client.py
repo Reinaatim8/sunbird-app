@@ -40,7 +40,7 @@ def transcribe_audio(audio_bytes: bytes, filename: str = "audio.mp3") -> str:
     url = f"{SUNBIRD_BASE_URL}/tasks/stt"
     files = {"audio": (filename, audio_bytes)}
     headers = _get_headers(content_type=None)
-    response = requests.post(url, files=files, headers=headers, timeout=120)
+    response = requests.post(url, files=files, headers=headers, timeout=180)
     response.raise_for_status()
     data = response.json()
     return data["output"]["text"]
@@ -50,7 +50,7 @@ def summarise_text(text: str) -> str:
     url = f"{SUNBIRD_BASE_URL}/tasks/summarise"
     payload = {"text": text}
     headers = _get_headers()
-    response = requests.post(url, json=payload, headers=headers, timeout=120)
+    response = requests.post(url, json=payload, headers=headers, timeout=180)
     response.raise_for_status()
     data = response.json()
     return data["summarized_text"]
@@ -85,7 +85,7 @@ def synthesise_speech(text: str, language: str) -> str:
     url = f"{SUNBIRD_BASE_URL}/tasks/tts"
     payload = {"text": text, "speaker_id": speaker_id}
     headers = _get_headers()
-    response = requests.post(url, json=payload, headers=headers, timeout=60)
+    response = requests.post(url, json=payload, headers=headers, timeout=180)
     response.raise_for_status()
     data = response.json()
     return data["output"]["audio_url"]
