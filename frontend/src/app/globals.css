@@ -4,7 +4,7 @@
 @tailwind utilities;
 
 :root {
-  --sun-500: #ff7a0a;
+  --sun-500: rgb(178, 23, 136);
   --ink: #1a1209;
 }
 
