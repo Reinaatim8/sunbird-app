@@ -52,13 +52,12 @@ A full-stack GenAI web application powered by **Sunbird AI's Sunflower LLM** and
 ### Prerequisites
 - Python 3.11+
 - Node.js 18+
-- A Sunbird AI API token → [sign up here](https://sunbird.ai)
 
 ### 1. Clone
 
 ```bash
-git clone https://github.com/<your-username>/sunbird-pipeline-app.git
-cd sunbird-pipeline-app
+git clone https://github.com/Reinaatim8/sunbird-app.git
+cd sunbird-app
 ```
 
 ### 2. Python backend
@@ -67,14 +66,13 @@ cd sunbird-pipeline-app
 # Create and activate virtual environment
 python -m venv venv
 source venv/bin/activate        # Linux/Mac
-# venv\Scripts\activate.bat    # Windows
 
 # Install dependencies
 pip install -r requirements.txt
 
 # Configure environment
 cp .env.example .env
-# Edit .env and set your SUNBIRD_API_TOKEN
+# Edited .env and set the SUNBIRD_API_TOKEN
 ```
 
 ### 3. Next.js frontend
@@ -85,30 +83,52 @@ npm install
 cd ..
 ```
 
-### 4. Run both servers
+### 4. Running both servers locally first
 
-**Terminal 1 — backend:**
+**Terminal 1 — Backend (FastAPI):**
 ```bash
+# Ensure your virtual environment is active
+source venv/bin/activate  # Linux/Mac
+# or: venv\Scripts\activate  # Windows
+
 uvicorn main:app --reload --port 8000
 ```
 
-**Terminal 2 — frontend:**
+**Terminal 2 — Frontend (Next.js):**
 ```bash
 cd frontend
 npm run dev
 ```
 
-Open **http://localhost:3000** in your browser.
+Once both are running, open **[http://localhost:3000](http://localhost:3000)** in your browser to use the app.
+
+---
 
 ---
 
 ## Environment Variables
 
+The application requires the following environment variables to function correctly. 
+
+### Backend (.env)
+Create a `.env` file in the root directory:
+
+
 | Variable | Required | Description |
 |---|---|---|
-| `SUNBIRD_API_TOKEN`  | Your Sunbird AI API bearer token. Obtain from the Sunbird AI portal. |
+| `SUNBIRD_API_TOKEN` | **Yes** | Your Sunbird AI API bearer token. Obtain this from the [Sunbird AI Portal](https://sunbird.ai). |
 
-Store these in a `.env` file in the project root (never commit it — it's in `.gitignore`).
+### Frontend (.env.local)
+If you are using environment variables to manage your API location in the frontend:
+
+
+| Variable | Required | Description |
+|---|---|---|
+| `NEXT_PUBLIC_API_BASE_URL` | **Yes** | The base URL of your backend (e.g., `https://onrender.com` for production or `http://localhost:8000` for local dev). |
+
+> **Note:** Never commit your `.env` files to GitHub. They are included in the `.gitignore` to protect your API keys.
+
+---
 
 ---
 
@@ -131,32 +151,15 @@ pytest
 1. **Choose input mode** — toggle between *Text Input* and *Audio Upload*.
 2. **Provide input** — paste/type text, or drag-and-drop / browse for an audio file (MP3, WAV, OGG, M4A, AAC; max 5 minutes).
 3. **Pick a target language** — Luganda, Runyankole, Ateso, Lugbara, or Acholi.
-4. **Click "Run Pipeline"** — watch the steps complete in real time.
+4. **Click "Run Pipeline"** — watch the steps complete in real time and an output is produced. This pipeline may tae some time to load due to several calls being amde at once hence abit slow.
 5. **View results** — transcript (audio mode), summary, translated summary, and a playable audio clip.
 
 ---
 
-## Deployed Link
+## Deployed Link on Vercel and the Backend on Vercel
 
-🔗 **https://\<your-space\>.hf.space** *(update after deployment)*
-
----
-
-## Deployment (Hugging Face Spaces)
-
-This project is deployed on Hugging Face Spaces. To deploy your own copy:
-
-```bash
-# Create a Space at https://huggingface.co/new-space (choose Gradio/Streamlit SDK
-# or Docker for a custom Next.js + FastAPI setup)
-
-git remote add space https://huggingface.co/spaces/<your-username>/<your-space>
-git push space main
-```
-
-Add your `SUNBIRD_API_TOKEN` under **Space settings → Variables and secrets**.
-
-> **Alternative — Vercel**: deploy the Next.js frontend to Vercel and host the FastAPI backend on Railway, Render, or Fly.io. Set `SUNBIRD_API_TOKEN` as a Vercel environment variable and point `next.config.js` rewrites to your backend URL.
+ **https://sunbird-frontend.vercel.app/**
+ **https://sunbird-backend-gwu5.onrender.com/api/health -to test functionality of the deployed backend**
 
 ---
 
@@ -167,3 +170,4 @@ Add your `SUNBIRD_API_TOKEN` under **Space settings → Variables and secrets**.
 - **Summarisation language**: the `/tasks/summarise` endpoint works best with English and Luganda text. Non-English audio transcripts may produce lower-quality summaries.
 - **Audio URL expiry**: the TTS-generated audio URL is a temporary signed Google Cloud Storage URL — download or play it promptly.
 - **Rate limits**: Sunbird AI free-tier accounts have rate limits; heavy usage may return 429 errors (the UI surfaces these clearly).
+- **Render Cold Start**: The backend is hosted on a Render Free Instance. If the app hasn't been used in 15 minutes, the first request may take ~50 seconds to complete while the server spins up.
