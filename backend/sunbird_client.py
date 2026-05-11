@@ -72,7 +72,7 @@ def translate_text(text: str, target_language: str) -> str:
         ]
     }
     headers = _get_headers()
-    response = requests.post(url, json=payload, headers=headers, timeout=60)
+    response = requests.post(url, json=payload, headers=headers, timeout=180)
     response.raise_for_status()
     data = response.json()
     return data["content"]
