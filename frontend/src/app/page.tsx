@@ -281,8 +281,15 @@ export default function Home() {
 
       {/* Pipeline progress */}
       {running && (
-        <div className="mb-6 rounded-xl border border-earth-200 bg-white p-4 space-y-3 animate-fade-up">
-          <p className="label">Pipeline progress</p>
+      <div className="mb-6 rounded-xl border border-earth-200 bg-white p-4 space-y-3 animate-fade-up">
+        <div className="flex items-center gap-2 mb-2 p-3 rounded-lg bg-sun-50 border border-sun-200">
+          <Loader2 className="w-4 h-4 animate-spin text-sun-500 shrink-0" />
+          <p className="font-body text-sm text-sun-700">
+             Please be patient — this pipeline makes several AI calls and may take
+            1–3 minutes to complete. Sit tight!
+          </p>
+        </div>
+    <p className="label">Pipeline progress</p>
           {(mode === "audio" ? ["transcribe", "summarise", "translate", "tts"] : ["summarise", "translate", "tts"]).map((key) => (
             <div key={key} className="flex items-center gap-3">
               {stepIcon(steps[key as keyof StepState])}

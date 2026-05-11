@@ -5,7 +5,7 @@ main.py  —  FastAPI backend for Sunbird AI Pipeline App
 import sys
 import os
 
-# Make sure backend package is importable when running from project root
+# to make sure backend package is importable when running from project root
 sys.path.insert(0, os.path.dirname(__file__))
 
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException
